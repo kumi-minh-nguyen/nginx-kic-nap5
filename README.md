@@ -6,16 +6,6 @@ For testing purpose, two sample policies are defined here:
 - WAF policy for SQL Injection with custom pattern
 - Rate Limiting for a particular service endpoint
 
-References:
-
-https://docs.nginx.com/nginx-app-protect-waf/v5/admin-guide/compiler/
-
-https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/configuration/
-
-https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/installation/
-
-https://docs.nginx.com/nginx-ingress-controller/configuration/policy-resource/
-
 ### Prerequisites
 - NGINX Plus trial keys have been downloaded from F5 portal
 - NGINX Plus Ingress Controller with Custom Resource Definition has been installed
@@ -104,4 +94,15 @@ https://docs.nginx.com/nginx-ingress-controller/configuration/policy-resource/
 - Rate limit is set to `tea` service with 10 requests per seconds. Some requests will be blocked.
   
 `for i in {1..11}; do curl -k https://cafe.example.com/tea; done; echo`
+
+### Further reading
+
+https://docs.nginx.com/nginx-app-protect-waf/v5/admin-guide/compiler/
+
+https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/configuration/
+
+https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/installation/
+
+https://docs.nginx.com/nginx-ingress-controller/configuration/policy-resource/
+
 

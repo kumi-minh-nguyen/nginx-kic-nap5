@@ -9,6 +9,10 @@ For testing purpose, two sample policies are defined here:
 ### Prerequisites
 - NGINX Plus trial keys have been downloaded from F5 portal
 - NGINX Plus Ingress Controller with Custom Resource Definition has been installed
+- Using the trial keys, log in to NGINX private repo to pull 3 images back to your environment:
+  - private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.6.2
+  - private-registry.nginx.com/nap/waf-config-mgr:5.2.0
+  - private-registry.nginx.com/nap/waf-enforcer:5.2.0
 
 ### Implementation
 

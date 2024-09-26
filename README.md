@@ -2,6 +2,9 @@
 
 ### Summary
 This repository provides guidance to set up Nginx Plus Ingress Controller with NGINX App Protect WAF v5. 
+For testing purpose, two sample policies are defined here: 
+- WAF policy for SQL Injection with custom pattern
+- Rate Limiting for a particular service endpoint
 
 References:
 

@@ -11,6 +11,8 @@ https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-pr
 
 https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/installation/
 
+https://docs.nginx.com/nginx-ingress-controller/configuration/policy-resource/
+
 ### Prerequisites
 - NGINX Plus trial keys have been downloaded from F5 portal
 - NGINX Plus Ingress Controller with Custom Resource Definition has been installed

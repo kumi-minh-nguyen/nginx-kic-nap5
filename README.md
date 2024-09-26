@@ -1,9 +1,17 @@
 # nginx-kic-nap5
 
-#### Summary
-This provides guidance to set up Nginx Plus Ingress Controller with NGINX App Protect WAF v5. 
+### Summary
+This repository provides guidance to set up Nginx Plus Ingress Controller with NGINX App Protect WAF v5. 
 
-#### Prerequisites
+References:
+
+https://docs.nginx.com/nginx-app-protect-waf/v5/admin-guide/compiler/
+
+https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/configuration/
+
+https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-protect-waf-v5/installation/
+
+### Prerequisites
 - NGINX Plus trial keys have been downloaded from F5 portal
 - NGINX Plus Ingress Controller with Custom Resource Definition has been installed 
 

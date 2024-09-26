@@ -34,6 +34,8 @@ https://docs.nginx.com/nginx-ingress-controller/configuration/policy-resource/
 
 `docker run --rm -v $(pwd):$(pwd) waf-compiler:1.0.0 -l $(pwd)/nap5-custom-log-profile.json -o $(pwd)/nap5-log-profile.tgz`
 
+*Important: in case of recompiling to overwrite a policy, ensure the policy owner is 101:101 (systemd-resolve)*
+
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*
 

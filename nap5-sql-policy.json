@@ -10,14 +10,6 @@
             "attackType": {
                 "name": "SQL-Injection"
             },
-            "systems": [
-                {
-                    "name": "Microsoft Windows"
-                },
-                {
-                    "name": "Unix/Linux"
-                }
-            ],
             "risk": "high",
             "accuracy": "high",
             "description": "Custom SQL Injection pattern to detect typical SQL injection attacks with OR '1'='1 and SQL comment patterns."

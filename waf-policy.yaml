@@ -6,3 +6,7 @@ spec:
   waf:
     enable: true
     apBundle: "nap5-policy.tgz"
+    securityLogs:
+    - enable: true
+      apLogBundle: "nap5-log-profile.tgz"
+      logDest: "syslog:server=10.1.1.9:8515"

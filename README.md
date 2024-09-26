@@ -13,7 +13,9 @@ https://docs.nginx.com/nginx-ingress-controller/installation/integrations/app-pr
 
 ### Prerequisites
 - NGINX Plus trial keys have been downloaded from F5 portal
-- NGINX Plus Ingress Controller with Custom Resource Definition has been installed 
+- NGINX Plus Ingress Controller with Custom Resource Definition has been installed
+
+### Implementation
 
 #### Step 1: Clone the repo to use
 

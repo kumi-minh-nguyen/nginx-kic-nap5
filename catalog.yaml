@@ -1,0 +1,10 @@
+---
+compilerEngine: full
+componentVersions:
+  wafEngineVersion: 10.578.0
+logging_profiles:
+  nap5_log_profile_7d93ece17b8ec0c47c1b77e21678d16b:
+    fileMD5: 64f4013410e1011befa6da5ad812da5d
+    logProfileCrc: '3774317932'
+    originalFilename: /builds/root/nap5/nap5_log_profile.json
+timestamp: 2024-08-02T15:55:08Z

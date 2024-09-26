@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kic-nap5-bundles-pv
+  namespace: nginx-ingress
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/kic_nap5_bundles_pv_data"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kic-nap5-bundles-pvc
+  namespace: nginx-ingress
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: kic-nap5-bundles-pv

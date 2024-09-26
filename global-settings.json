@@ -1,0 +1,12 @@
+{
+    "waf-settings": {
+        "cookie-protection": {
+            "seed": "80miIOiSeXfvNBiDJV4t"
+        },
+        "user-defined-signatures": [
+            {
+                "$ref": "file:///home/ubuntu/nginx-kic-nap5/sql-policy.json"
+            }
+        ]
+    }
+}

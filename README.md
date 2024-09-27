@@ -80,15 +80,15 @@ For testing purpose, two sample policies are defined here:
 *SQL Injection*
 - Testing with single quote (this should pass)
 
-`curl -I "http://webapp.example.com/?id=1'"`
+`curl -I "http://cafe.example.com/?id=1'"`
 
 - Testing with union-based injection (this should fail)
 
-`curl -I "http://webapp.example.com/?id=1 UNION SELECT null, username, password FROM users--"`
+`curl -I "http://cafe.example.com/?id=1 UNION SELECT null, username, password FROM users--"`
 
 - Testing with comment-based injection (this should fail)
   
-`curl -I "http://webapp.example.com/?id=1; --"`
+`curl -I "http://cafe.example.com/?id=1; --"`
 
 *Rate Limit*
 - Rate limit is not set to `coffee` service. All will pass.

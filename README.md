@@ -33,6 +33,8 @@ For testing purpose, two sample policies are defined here:
 
 *Important: in case of recompiling to overwrite a policy, ensure the policy owner is 101:101 (systemd-resolve)*
 
+`sudo chown 101:101 nap5-policy.tgz `
+
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*
 

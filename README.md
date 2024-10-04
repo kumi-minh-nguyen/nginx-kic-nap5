@@ -85,6 +85,7 @@ For testing purpose, two sample policies are defined here:
 - Testing with SQL keywords (this should fail)
 
 `curl -k "https://cafe.example.com/coffee?id=1%20UNION%20SELECT%20null,%20username,%20password%20FROM%20users--"`
+
 `curl -k "https://cafe.example.com/coffee?id=1%3B%20OR%201=1"`
 
 *Rate Limit*

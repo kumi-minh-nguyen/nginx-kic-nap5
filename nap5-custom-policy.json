@@ -5,6 +5,32 @@
             "name": "POLICY_TEMPLATE_NGINX_BASE"
         },
         "applicationLanguage": "utf-8",
-        "enforcementMode": "blocking"
+        "enforcementMode": "blocking",
+        "signature-requirements": [
+            {
+                "tag": "SQL_Injection",
+                "minRevisionDatetime": "2024-09-20T00:00:00Z",
+                "maxRevisionDatetime": "2024-09-22T23:59:59Z"
+            }
+        ],
+        "signatures": [
+            {
+                "name": "SQL_Injection_Custom_Pattern",
+                "tag": "SQL_Injection"
+            }
+        ],
+        "signature-sets": [
+            {
+                "name": "SQL_Injection_Signature_Set",
+                "block": true,
+                "alarm": true,
+                "signatureSet": {
+                    "filter": {
+                        "tagValue": "SQL_Injection",
+                        "tagFilter": "eq"
+                    }
+                }
+            }
+        ]
     }
 }

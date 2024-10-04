@@ -82,13 +82,10 @@ For testing purpose, two sample policies are defined here:
 
 `curl -k "https://cafe.example.com/coffee?id=1'"`
 
-- Testing with union-based injection (this should fail)
+- Testing with SQL keywords (this should fail)
 
 `curl -k "https://cafe.example.com/coffee?id=1%20UNION%20SELECT%20null,%20username,%20password%20FROM%20users--"`
-
-- Testing with comment-based injection (this should fail)
-  
-`curl -k "https://cafe.example.com/coffee?id=1%3B%20--"`
+`curl -k "https://cafe.example.com/coffee?id=1%3B%20OR%201=1"`
 
 *Rate Limit*
 - Rate limit is not set to `coffee` service. All will pass.

@@ -36,7 +36,7 @@ For testing purpose, two sample policies are defined here:
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*
 
-`cp nap5-custom-policy.tgz /mnt/kic_nap5_bundles_pv_data/`
+`cp nap5-policy.tgz /mnt/kic_nap5_bundles_pv_data/`
 
 *Note: the storage folder need to be owned by 101:101 user*
 

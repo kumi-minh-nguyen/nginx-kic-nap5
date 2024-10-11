@@ -32,7 +32,7 @@ spec:
         persistentVolumeClaim:
           claimName: kic-nap5-bundles-pvc
       containers:
-      - image: repositories.f5demos.com:8443/kic-nap5/nginx-plus-ingress:3.6.2
+      - image: repositories.f5demos.com:8443/kic-nap5/nginx-plus-ingress:3.7.0
         imagePullPolicy: IfNotPresent
         name: nginx-plus-ingress
         volumeMounts:
@@ -99,7 +99,7 @@ spec:
          #- -enable-service-insight
          #- -global-configuration=$(POD_NAMESPACE)/nginx-configuration
       - name: waf-enforcer
-        image: repositories.f5demos.com:8443/kic-nap5/waf-enforcer:5.2.0
+        image: repositories.f5demos.com:8443/kic-nap5/waf-enforcer:5.3.0
         imagePullPolicy: IfNotPresent
         env:
           - name: ENFORCER_PORT
@@ -108,7 +108,7 @@ spec:
           - name: app-protect-bd-config
             mountPath: /opt/app_protect/bd_config
       - name: waf-config-mgr
-        image: repositories.f5demos.com:8443/kic-nap5/waf-config-mgr:5.2.0
+        image: repositories.f5demos.com:8443/kic-nap5/waf-config-mgr:5.3.0
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false

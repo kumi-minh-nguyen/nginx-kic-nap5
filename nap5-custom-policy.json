@@ -10,7 +10,7 @@
             {
                 "tag": "SQL_Injection",
                 "minRevisionDatetime": "2024-09-20T00:00:00Z",
-                "maxRevisionDatetime": "2024-09-22T23:59:59Z"
+                "maxRevisionDatetime": "2024-10-03T23:59:59Z"
             }
         ],
         "signatures": [

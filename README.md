@@ -94,7 +94,9 @@ nginx-repo.jwt
 
 #### Step 2: Clone this repository
 
-`git clone ... `
+`git clone https://github.com/kumi-minh-nguyen/nginx-kic-nap5.git `
+
+`cd nginx-kic-nap5`
 
 #### Step 3: Create bundles by running waf-compiler image 
 *For example: repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0*
@@ -104,21 +106,21 @@ nginx-repo.jwt
 `docker run --rm \
  -v $(pwd):$(pwd) \
  repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 \
- -g $(pwd)/nap5-global-settings.json \
--p $(pwd)/nap5-custom-policy.json \
--o $(pwd)/nap5-policy.tgz`
+ -g $(pwd)/policy-json/nap5-global-settings.json \
+-p $(pwd)/policy-json/nap5-custom-policy.json \
+-o $(pwd)/policy-tgz/nap5-policy.tgz`
 
 - log bundles
 
 `docker run --rm \
  -v $(pwd):$(pwd) \
  repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 \
--l $(pwd)/nap5-custom-log-profile.json \
--o $(pwd)/nap5-log-profile.tgz`
+-l $(pwd)/policy-json/nap5-custom-log-profile.json \
+-o $(pwd)/policy-tgz/nap5-log-profile.tgz`
 
 - Important: in case of recompiling to overwrite a policy, ensure the policy owner is 101:101 (systemd-resolve)
   
-`sudo chown 101:101 nap5-policy.tgz`
+`sudo chown 101:101 policy-tgz/nap5-policy.tgz`
 
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*
@@ -131,9 +133,9 @@ nginx-repo.jwt
 
 #### Step 5: Create the policy with bundles information
 
-`kubectl apply -f waf-policy.yaml`
+`kubectl apply -f ingress-waf/waf-policy.yaml`
 
-`kubectl apply -f rate-limit-policy.yaml`
+`kubectl apply -f ingress-waf/rate-limit-policy.yaml`
 
 *Check if policies are created properly*
 
@@ -141,11 +143,11 @@ nginx-repo.jwt
 
 #### Step 6: Create persistent volume and claim
 
-`kubectl apply -f storage.yaml`
+`kubectl apply -f ingress-waf/storage.yaml`
 
-#### Step 7: Create nginx plus ingress with waf config manager and waf enforcer
+#### Step 7: Deploy nginx plus ingress with waf config manager and waf enforcer
 
-`kubectl apply -f nginx-plus-ingress.yaml`
+`kubectl apply -f ingress-waf/nginx-plus-ingress.yaml`
 
 *Check if ingress is created properly*
 
@@ -153,15 +155,15 @@ nginx-repo.jwt
 
 #### Step 8: Create load balancer service
 
-`kubectl apply -f service.yaml`
+`kubectl apply -f ingress-waf/service.yaml`
 
 #### Step 9: Create coffee and tea services
 
-`kubectl apply -f cafe-secret.yaml`
+`kubectl apply -f sample-app/cafe-secret.yaml`
 
-`kubectl apply -f cafe-deployment.yaml`
+`kubectl apply -f sample-app/cafe-deployment.yaml`
 
-`kubectl apply -f cafe-virtualserver.yaml`
+`kubectl apply -f sample-app/cafe-virtualserver.yaml`
 
 #### Step 10: Test the policies
 *SQL Injection*
@@ -183,6 +185,25 @@ nginx-repo.jwt
 - Rate limit is set to `tea` service with 10 requests per seconds. Some requests will be blocked.
   
 `for i in {1..11}; do curl -k https://cafe.example.com/tea; done; echo`
+
+---
+### Useful Debugging Lines
+
+`export NIC=$(kubectl get pods -n nginx-ingress -o jsonpath='{.items[0].metadata.name}')`
+
+`kubectl logs  $NIC -n nginx-ingress --all-containers=true`
+
+`kubectl logs  $NIC -n nginx-ingress waf-enforcer`
+
+`kubectl logs  $NIC -n nginx-ingress waf-config-mgr`
+
+`kubectl apply -f deployments/deployment/nginx-plus-ingress.yaml`
+
+`kubectl describe pvc app-protect-bundles -n nginx-ingress`
+
+`kubectl delete pod $NIC -n nginx-ingress --grace-period=0 --force`
+
+---
 
 ### Further reading
 

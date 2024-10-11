@@ -157,7 +157,7 @@ nginx-repo.jwt
 
 `kubectl apply -f ingress-waf/service.yaml`
 
-#### Step 9: Create coffee and tea services
+#### Step 9: Create sample services
 
 `kubectl apply -f sample-app/cafe-secret.yaml`
 

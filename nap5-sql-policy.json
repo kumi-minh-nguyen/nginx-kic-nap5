@@ -1,18 +1,18 @@
 {
-    "softwareVersion": "15.1.0",
+  "softwareVersion": "15.1.0",
     "tag": "SQL_Injection",
-    "revisionDatetime": "2024-10-03T18:32:02Z",
+    "revisionDatetime": "2024-09-22T18:32:02Z",
     "signatures": [
         {
-            "name": "Hex_Encoded_SQL_Injection_Detection",
-	    "rule": "pcre:\"(\\b[Ss][Ee][Ll][Ee][Cc][Tt]\\b|\\b[Ii][Nn][Ss][Ee][Rr][Tt]\\b|\\b[Dd][Ee][Ll][Ee][Tt][Ee]\\b|\\b[Uu][Pp][Dd][Aa][Tt][Ee]\\b|\\b[Ww][Hh][Ee][Rr][Ee]\\b|\\b[Uu][Nn][Ii][Oo][Nn]\\b|\\b[Ff][Rr][Oo][Mm]\\b)\";",
+            "name": "SQL_Injection_Custom_Pattern",
+            "rule": "content:\"' OR '1'='1\"; nocase; content:\"--\"; nocase;",
             "signatureType": "request",
             "attackType": {
                 "name": "SQL-Injection"
             },
             "risk": "high",
             "accuracy": "high",
-            "description": "Enhanced detection of hex-encoded SQL injection including typical SQL keywords and characters."
+            "description": "Custom SQL Injection pattern to detect typical SQL injection attacks with OR '1'='1 and SQL comment patterns."
         }
     ]
 }

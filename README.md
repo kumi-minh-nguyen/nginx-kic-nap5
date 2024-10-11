@@ -9,7 +9,7 @@ For testing purpose, two sample policies are defined here:
 --- 
 
 ### Pull images from NGINX private repository
-#### Step 1: Download and copy NGINX Plus trial keys to `/etc/ssl/nginx` folder
+#### Step 1: Download from MyF5 portal and copy NGINX Plus trial keys to `/etc/ssl/nginx` folder
 nginx-repo.crt
 
 nginx-repo.key

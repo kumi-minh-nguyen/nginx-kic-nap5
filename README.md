@@ -13,6 +13,7 @@ For testing purpose, two sample policies are defined here:
   - private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.6.2
   - private-registry.nginx.com/nap/waf-config-mgr:5.2.0
   - private-registry.nginx.com/nap/waf-enforcer:5.2.0
+  - private-registry.nginx.com/nap/waf-compiler:5.2.0
 
 ### Implementation
 

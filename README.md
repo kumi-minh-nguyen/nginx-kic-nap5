@@ -6,35 +6,119 @@ For testing purpose, two sample policies are defined here:
 - WAF policy for SQL Injection with custom pattern
 - Rate Limiting for a particular service endpoint
 
-### Prerequisites
-- NGINX Plus trial keys have been downloaded from F5 portal
-- NGINX Plus Ingress Controller with Custom Resource Definition has been installed
-- Using the trial keys, log in to NGINX private repo to pull 4 images back to your environment:
-  - private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.6.2
-  - private-registry.nginx.com/nap/waf-config-mgr:5.2.0
-  - private-registry.nginx.com/nap/waf-enforcer:5.2.0
-  - private-registry.nginx.com/nap/waf-compiler:5.2.0
+--- 
 
-### Implementation
+### Pull images from NGINX private repository
+#### Step 1: Download and copy NGINX Plus trial keys to `/etc/ssl/nginx` folder
+nginx-repo.crt
 
-#### Step 1: Clone the repo to use
+nginx-repo.key
 
-`cd nginx-kic-nap5`
+nginx-repo.jwt
+#### Step 2: Authenticate to the repository
+`cd /etc/ssl/nginx`
 
-#### Step 2: Build Waf Complier
-*Make sure you have nginx-repo.crt and nginx-repo.key in the respective folder (/etc/ssl/nginx)*
+`NGINX_JWT=$(cat nginx-repo.jwt)`
 
-`sudo docker build --no-cache --secret id=nginx-crt,src=/etc/ssl/nginx/nginx-repo.crt --secret id=nginx-key,src=/etc/ssl/nginx/nginx-repo.key -t waf-compiler:1.0.0 .`
+`docker login private-registry.nginx.com --username=$(echo $NGINX_JWT) --password=none`
+#### Step 3: View available images
+  
+`curl -s https://private-registry.nginx.com/v2/nginx-ic/nginx-plus-ingress/tags/list --key nginx-repo.key --cert nginx-repo.crt | jq`
 
-#### Step 3: Compile waf policy and log bundles
+`curl -s https://private-registry.nginx.com/v2/nap/waf-compiler/tags/list --key nginx-repo.key --cert nginx-repo.crt | jq`
 
-`docker run --rm -v $(pwd):$(pwd) waf-compiler:1.0.0 -g $(pwd)/nap5-global-settings.json -p $(pwd)/nap5-custom-policy.json -o $(pwd)/nap5-policy.tgz`
+`curl -s https://private-registry.nginx.com/v2/nap/waf-config-mgr/tags/list --key nginx-repo.key --cert nginx-repo.crt | jq`
 
-`docker run --rm -v $(pwd):$(pwd) waf-compiler:1.0.0 -l $(pwd)/nap5-custom-log-profile.json -o $(pwd)/nap5-log-profile.tgz`
+`curl -s https://private-registry.nginx.com/v2/nap/waf-enforcer/tags/list --key nginx-repo.key --cert nginx-repo.crt | jq`
 
-*Important: in case of recompiling to overwrite a policy, ensure the policy owner is 101:101 (systemd-resolve)*
+#### Step 4: Create credentials to pull images
+`mkdir -p /etc/docker/certs.d/private-registry.nginx.com`
 
-`sudo chown 101:101 nap5-policy.tgz `
+`cp /etc/ssl/nginx/nginx-repo.crt /etc/docker/certs.d/private-registry.nginx.com/client.cert`
+
+`cp /etc/ssl/nginx/nginx-repo.key /etc/docker/certs.d/private-registry.nginx.com/client.key`
+
+#### Step 5: Pull images with desired version
+`docker pull private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.7.0`
+
+`docker pull private-registry.nginx.com/nap/waf-config-mgr:5.3.0`
+
+`docker pull private-registry.nginx.com/nap/waf-enforcer:5.3.0`
+
+`docker pull private-registry.nginx.com/nap/waf-compiler:5.3.0`
+
+`docker images`
+
+#### Step 6: Push images to private registry 
+*For example: repositories.f5demos.com:8443*
+
+`docker login repositories.f5demos.com:8443`
+
+`docker tag private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.7.0 repositories.f5demos.com:8443/kic-nap5/nginx-plus-ingress:3.7.0`
+
+`docker push repositories.f5demos.com:8443/kic-nap5/nginx-plus-ingress:3.7.0`
+
+`docker tag private-registry.nginx.com/nap/waf-config-mgr:5.3.0 repositories.f5demos.com:8443/kic-nap5/waf-config-mgr:5.3.0`
+
+`docker push repositories.f5demos.com:8443/kic-nap5/waf-config-mgr:5.3.0`
+
+`docker tag private-registry.nginx.com/nap/waf-enforcer:5.3.0 repositories.f5demos.com:8443/kic-nap5/waf-enforcer:5.3.0`
+
+`docker push repositories.f5demos.com:8443/kic-nap5/waf-enforcer:5.3.0`
+
+`docker tag private-registry.nginx.com/nap/waf-compiler:5.3.0 repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0`
+
+`docker push repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0`
+
+---
+
+### Configure NGINX Plus Ingress Controller with WAF v5 enable
+#### Step 1: Clone the ingress repository and create custom resources 
+`git clone https://github.com/nginxinc/kubernetes-ingress.git --branch v3.7.0`
+
+`cd kubernetes-ingress`
+
+`kubectl apply -f config/crd/bases/k8s.nginx.org_virtualservers.yaml`
+
+`kubectl apply -f config/crd/bases/k8s.nginx.org_virtualserverroutes.yaml`
+
+`kubectl apply -f config/crd/bases/k8s.nginx.org_transportservers.yaml`
+
+`kubectl apply -f config/crd/bases/k8s.nginx.org_policies.yaml`
+
+`kubectl apply -f config/crd/bases/k8s.nginx.org_globalconfigurations.yaml`
+
+`kubectl apply -f deployments/common/ns-and-sa.yaml`
+
+`kubectl apply -f deployments/rbac/rbac.yaml`
+
+#### Step 2: Clone this repository
+
+`git clone ... `
+
+#### Step 3: Create bundles by running waf-compiler image 
+*For example: repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0*
+
+- waf policy bundles
+  
+`docker run --rm \
+ -v $(pwd):$(pwd) \
+ repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 \
+ -g $(pwd)/nap5-global-settings.json \
+-p $(pwd)/nap5-custom-policy.json \
+-o $(pwd)/nap5-policy.tgz`
+
+- log bundles
+
+`docker run --rm \
+ -v $(pwd):$(pwd) \
+ repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 \
+-l $(pwd)/nap5-custom-log-profile.json \
+-o $(pwd)/nap5-log-profile.tgz`
+
+- Important: in case of recompiling to overwrite a policy, ensure the policy owner is 101:101 (systemd-resolve)
+  
+`sudo chown 101:101 nap5-policy.tgz`
 
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*

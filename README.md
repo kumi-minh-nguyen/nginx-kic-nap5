@@ -39,6 +39,12 @@ nginx-repo.jwt
 `cp /etc/ssl/nginx/nginx-repo.key /etc/docker/certs.d/private-registry.nginx.com/client.key`
 
 #### Step 5: Pull images with desired version
+Note: Do you pull pull images as root. Instead, add you current user to docker group. Example with ubuntu user:
+
+`sudo usermod -aG docker ubuntu`
+
+`newgrp docker`
+
 `docker pull private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.7.0`
 
 `docker pull private-registry.nginx.com/nap/waf-config-mgr:5.3.0`

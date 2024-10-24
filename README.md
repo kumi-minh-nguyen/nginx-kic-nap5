@@ -6,6 +6,10 @@ For testing purpose, two sample policies are defined here:
 - WAF policy for SQL Injection with custom pattern
 - Rate Limiting for a particular service endpoint
 
+### Architecture
+
+![Test](./kic_waf_v5.png)
+
 --- 
 
 ### Pull images from NGINX private repository

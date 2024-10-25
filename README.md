@@ -114,17 +114,17 @@ Note: Do you pull pull images as root. Instead, add you current user to docker g
 - waf policy bundles
   
 `docker run --rm 
- -v $(pwd):$(pwd) 
- repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 
- -g $(pwd)/policy-json/nap5-global-settings.json 
+-v $(pwd):$(pwd) 
+repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 
+-g $(pwd)/policy-json/nap5-global-settings.json 
 -p $(pwd)/policy-json/nap5-custom-policy.json 
 -o $(pwd)/policy-tgz/nap5-policy.tgz`
 
 - log bundles
 
 `docker run --rm 
- -v $(pwd):$(pwd) 
- repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 
+-v $(pwd):$(pwd) 
+repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0 
 -l $(pwd)/policy-json/nap5-custom-log-profile.json 
 -o $(pwd)/policy-tgz/nap5-log-profile.tgz`
 

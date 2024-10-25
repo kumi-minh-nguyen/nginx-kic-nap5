@@ -5,7 +5,7 @@
         },
         "user-defined-signatures": [
             {
-                "$ref": "file:///home/ubuntu/nginx-kic-nap5/nap5-sql-policy.json"
+                "$ref": "file:///home/ubuntu/nginx-kic-nap5/policy-json/nap5-sql-policy.json"
             }
         ]
     }

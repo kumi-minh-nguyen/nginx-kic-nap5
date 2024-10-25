@@ -132,6 +132,8 @@ repositories.f5demos.com:8443/kic-nap5/waf-compiler:5.3.0
   
 `sudo chown 101:101 policy-tgz/nap5-policy.tgz`
 
+`sudo chown 101:101 policy-tgz/nap5-log-profile.tgz`
+
 #### Step 4: Copy the policy and log bundle to your storage folder. 
 *For example: /mnt/kic_nap5_bundles_pv_data/*
 

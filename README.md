@@ -35,14 +35,7 @@ nginx-repo.jwt
 
 `curl -s https://private-registry.nginx.com/v2/nap/waf-enforcer/tags/list --key nginx-repo.key --cert nginx-repo.crt | jq`
 
-#### Step 4: Create credentials to pull images
-`mkdir -p /etc/docker/certs.d/private-registry.nginx.com`
-
-`cp /etc/ssl/nginx/nginx-repo.crt /etc/docker/certs.d/private-registry.nginx.com/client.cert`
-
-`cp /etc/ssl/nginx/nginx-repo.key /etc/docker/certs.d/private-registry.nginx.com/client.key`
-
-#### Step 5: Pull images with desired version
+#### Step 4: Pull images with desired version
 Note: Do you pull pull images as root. Instead, add you current user to docker group. Example with ubuntu user:
 
 `sudo usermod -aG docker ubuntu`
@@ -59,7 +52,7 @@ Note: Do you pull pull images as root. Instead, add you current user to docker g
 
 `docker images`
 
-#### Step 6: Push images to private registry 
+#### Step 5: Push images to private registry 
 *For example: repositories.f5demos.com:8443*
 
 `docker login repositories.f5demos.com:8443`

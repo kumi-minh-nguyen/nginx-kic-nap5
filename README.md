@@ -38,9 +38,9 @@ nginx-repo.jwt
 #### Step 4: Pull images with desired version
 Note: Do you pull pull images as root. Instead, add you current user to docker group. Example with ubuntu user:
 
-`sudo usermod -aG docker ubuntu`
+`su - ubuntu`
 
-`newgrp docker`
+`sudo usermod -aG docker $USER`
 
 `docker pull private-registry.nginx.com/nginx-ic-nap-v5/nginx-plus-ingress:3.7.0`
 
